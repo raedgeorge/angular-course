@@ -36,10 +36,8 @@ export class AuthComponent implements OnInit, OnDestroy {
     console.log('on init');
      this.logOutSub = this.authService.isLoggedOutSub.subscribe(
        (isLoggedOut: boolean) => {
-       console.log('status: ' + isLoggedOut);
          this.loggedOut = isLoggedOut;
        })
-    console.log('out log out: ' + this.loggedOut);
   }
 
   onSwitchMode() {
