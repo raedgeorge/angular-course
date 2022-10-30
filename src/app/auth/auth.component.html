@@ -1,0 +1,66 @@
+<ng-template appPlaceHolder></ng-template>
+<div class="row">
+  <div class="col-xs-12 col-md-6 col-md-offset-3">
+    <div *ngIf="isLoading" style="text-align: center">
+      <app-spinner></app-spinner>
+    </div>
+<!--    <div class="alert alert-danger" *ngIf="error">-->
+<!--      <p>{{error}}</p>-->
+<!--    </div>-->
+<!--    <app-alert [message]="error" *ngIf="error" (close)="onHandleError()" ></app-alert>-->
+    <div class="alert alert-success" *ngIf="isLoggedIn">
+      <p>You Logged in successfully</p>
+    </div>
+    <div *ngIf="loggedOut" class="alert alert-success">
+      <p>you have logged out</p>
+    </div>
+    <form (ngSubmit)="onSubmit()" #authForm="ngForm">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          id="email"
+          type="email"
+          class="form-control"
+          ngModel
+          name="email"
+          required
+          email
+          #email="ngModel"
+        />
+        <span class="help-block" *ngIf="!email.valid && email.touched">
+          <span *ngIf="email.errors['required']">email is required!</span>
+          <span *ngIf="email.errors['email']">invalid email!</span>
+        </span>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          id="password"
+          type="password"
+          class="form-control"
+          ngModel
+          name="password"
+          required
+          minlength="6"
+          #password="ngModel"
+        />
+        <span class="help-block" *ngIf="!password.valid && password.touched">
+          invalid password!
+        </span>
+      </div>
+      <div>
+        <button
+          class="btn btn-primary"
+          type="submit"
+          [disabled]="!authForm.valid"
+        >
+          {{ isLoginMode ? "Login" : "Sign up" }}
+        </button>
+        |
+        <button class="btn btn-success" type="button" (click)="onSwitchMode()">
+          Switch to {{ isLoginMode ? "Sign up" : "Login" }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
